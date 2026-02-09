@@ -177,4 +177,7 @@ Maps are saved as JSON and can be manually edited:
 
 ## License
 
-See LICENSE file for details.
+- **Code** (`src/`, `examples/`, `Cargo.toml`): Apache License 2.0 - See [LICENSE](LICENSE)
+- **Assets** (`assets/`): Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY-NC-SA 4.0)
+  - These assets cannot be used for AI/ML training
+  - See [ASSETS-LICENSE.md](ASSETS-LICENSE.md) for full terms
