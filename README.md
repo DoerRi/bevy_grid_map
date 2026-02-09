@@ -20,6 +20,11 @@ Add this to your `Cargo.toml`:
 [dependencies]
 bevy_grid_map = { path = "path/to/bevy_grid_map" }
 ```
+or
+```toml
+[dependencies]
+bevy_grid_map = { git = "https://github.com/DoerRi/bevy_grid_map.git" }
+```
 
 ## Quick Start
 
