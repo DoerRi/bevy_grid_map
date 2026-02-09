@@ -1,0 +1,16 @@
+[package]
+name = "bevy_grid_map"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy-inspector-egui = "0.36.0"
+bevy_egui = "0.39.1"
+bevy_vox_scene = "0.21.0"
+bevy = "0.18.0"
+enum2egui = "0.33.0"
+egui = "0.33.3"
+derive_more = { version = "2.1.1", features = ["display"] }
+rand = "0.10.0"
+serde = { version = "1.0.228", features = ["serde_derive"] }
+serde_json = "1.0.149"
