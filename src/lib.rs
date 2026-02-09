@@ -54,3 +54,11 @@ impl<TYP: TileTypeAble, MARKER: MarkerAble> Plugin for TileMapPlugin<TYP, MARKER
         }
     }
 }
+
+pub mod prelude {
+    pub use crate::TileMapPlugin;
+    pub use crate::components::Tile;
+    pub use crate::events::*;
+    pub use crate::marker_traits::*;
+    pub use crate::resources::{TileMap, TileMapConfig};
+}

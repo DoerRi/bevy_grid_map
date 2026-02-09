@@ -22,6 +22,11 @@ impl<MARKER: MarkerAble> TileMap<MARKER> {
             _marker: PhantomData,
         }
     }
+    pub fn orientation_to_rotation(&self, orientation: u8) -> Quat {
+        let len = self.config.possible_orientations.len();
+        let orientation = orientation as usize % len;
+        self.config.possible_orientations[orientation]
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Resource, Serialize, Deserialize)]

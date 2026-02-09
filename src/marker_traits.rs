@@ -9,14 +9,3 @@ pub trait TileTypeAble:
     'static + GuiInspect + Component + Serialize + for<'de> serde::Deserialize<'de> + Clone + Default
 {
 }
-impl<
-    M: 'static
-        + GuiInspect
-        + Component
-        + Serialize
-        + for<'de> serde::Deserialize<'de>
-        + Clone
-        + Default,
-> TileTypeAble for M
-{
-}
