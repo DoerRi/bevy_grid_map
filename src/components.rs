@@ -1,7 +1,7 @@
+use crate::marker_traits::MarkerAble;
+use crate::resources::TileMap;
 use bevy::prelude::*;
 use std::marker::PhantomData;
-
-use crate::marker_traits::MarkerAble;
 
 #[derive(Debug, Clone, PartialEq, Component)]
 pub struct Tile<MARKER: MarkerAble> {
@@ -16,5 +16,14 @@ impl<MARKER: MarkerAble> Tile<MARKER> {
             orientation,
             _marker: PhantomData,
         }
+    }
+    pub fn on_added(
+        event: On<Add, Self>,
+        tiles: Query<&Self>,
+        mut tile_map: ResMut<TileMap<MARKER>>,
+    ) {
+        let entity = event.entity;
+        let tile = tiles.get(entity).unwrap();
+        tile_map.tiles.insert(tile.map_pos, entity);
     }
 }
