@@ -10,6 +10,7 @@ use std::marker::PhantomData;
 use crate::editor::TileMapEditorPlugin;
 use crate::events::{ClearMapEvent, LoadMapEvent, SaveMapEvent};
 use crate::marker_traits::{MarkerAble, TileTypeAble};
+use crate::prelude::Tile;
 use crate::resources::{TileMap, TileMapConfig};
 
 pub struct TileMapPlugin<TYP: TileTypeAble, MARKER: MarkerAble> {
@@ -39,9 +40,11 @@ impl<TYP: TileTypeAble, MARKER: MarkerAble> TileMapPlugin<TYP, MARKER> {
 impl<TYP: TileTypeAble, MARKER: MarkerAble> Plugin for TileMapPlugin<TYP, MARKER> {
     fn build(&self, app: &mut App) {
         app.insert_resource(TileMap::<MARKER>::new(self.config.clone()));
+
         app.add_observer(LoadMapEvent::<TYP, MARKER>::on);
         app.add_observer(SaveMapEvent::<TYP, MARKER>::on);
         app.add_observer(ClearMapEvent::<TYP, MARKER>::on);
+        app.add_observer(Tile::<MARKER>::on_added);
 
         if self.edit {
             app.add_plugins(TileMapEditorPlugin::<TYP, MARKER>::default());
