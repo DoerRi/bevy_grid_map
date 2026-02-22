@@ -10,6 +10,7 @@ use crate::{
     components::Tile,
     events::{ClearMapEvent, LoadMapEvent, SaveMapEvent},
     marker_traits::{MarkerAble, TileTypeAble},
+    utils,
 };
 
 pub struct TileMapEditorPlugin<TYP: TileTypeAble, MARKER: MarkerAble>(PhantomData<(TYP, MARKER)>);
@@ -44,6 +45,7 @@ pub struct TileMapEditor<TYP: TileTypeAble, MARKER: MarkerAble> {
     pub selected_tile_type: TYP,
     pub random_orientation: bool,
     pub selected_orientation: usize,
+    pub file_format: utils::FileFormat,
     show_tile_hit_box: bool,
     _marker: PhantomData<MARKER>,
 }
@@ -62,6 +64,7 @@ impl<TYP: TileTypeAble, MARKER: MarkerAble> Default for TileMapEditor<TYP, MARKE
             selected_tile_type: TYP::default(),
             random_orientation: true,
             selected_orientation: 0,
+            file_format: utils::FileFormat::Csv,
             show_tile_hit_box: false,
             _marker: PhantomData,
         }
@@ -208,12 +211,25 @@ impl<TYP: TileTypeAble, MARKER: MarkerAble> TileMapEditor<TYP, MARKER> {
 
                 ui.separator();
                 ui.heading("Save/Load");
+                ui.horizontal(|ui| {
+                    ui.label("Format");
+                    ui.selectable_value(
+                        &mut editor_state.file_format,
+                        utils::FileFormat::Csv,
+                        "CSV",
+                    );
+                    ui.selectable_value(
+                        &mut editor_state.file_format,
+                        utils::FileFormat::Json,
+                        "JSON",
+                    );
+                });
                 if ui.button("Save Map").clicked() {
-                    commands.trigger(SaveMapEvent::<TYP, MARKER>::new());
+                    commands.trigger(SaveMapEvent::<TYP, MARKER>::new(editor_state.file_format));
                 }
 
                 if ui.button("Load Map").clicked() {
-                    commands.trigger(LoadMapEvent::<TYP, MARKER>::new());
+                    commands.trigger(LoadMapEvent::<TYP, MARKER>::new(editor_state.file_format));
                 }
 
                 ui.separator();

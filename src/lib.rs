@@ -3,6 +3,8 @@ mod editor;
 mod events;
 mod marker_traits;
 mod resources;
+mod utils;
+
 use bevy::prelude::*;
 
 use std::marker::PhantomData;
@@ -52,7 +54,8 @@ impl<TYP: TileTypeAble, MARKER: MarkerAble> Plugin for TileMapPlugin<TYP, MARKER
 
         if self.config.load_from_source {
             app.add_systems(Startup, |mut commands: Commands| {
-                commands.trigger(LoadMapEvent::<TYP, MARKER>::new());
+                commands.trigger(LoadMapEvent::<TYP, MARKER>::new(utils::FileFormat::Csv));
+                commands.trigger(LoadMapEvent::<TYP, MARKER>::new(utils::FileFormat::Json));
             });
         }
     }
@@ -64,4 +67,5 @@ pub mod prelude {
     pub use crate::events::*;
     pub use crate::marker_traits::*;
     pub use crate::resources::{TileMap, TileMapConfig};
+    pub use crate::utils::FileFormat;
 }

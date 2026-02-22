@@ -7,6 +7,7 @@ use std::f32::consts::PI;
 use std::marker::PhantomData;
 
 use crate::marker_traits::MarkerAble;
+use crate::utils;
 
 #[derive(Debug, Clone, PartialEq, Resource, Serialize, Deserialize)]
 pub struct TileMap<MARKER: MarkerAble> {
@@ -33,6 +34,7 @@ impl<MARKER: MarkerAble> TileMap<MARKER> {
 pub struct TileMapConfig {
     pub tile_size: Vec3,
     pub source_path: String,
+    pub file_format: utils::FileFormat,
     pub load_from_source: bool,
     pub next_tile_dir: Vec<(Vec3, IVec3)>,
     pub possible_orientations: Vec<Quat>,
@@ -55,7 +57,8 @@ impl Default for TileMapConfig {
     fn default() -> Self {
         Self {
             tile_size: (1.0, 1.0, 1.0).into(),
-            source_path: "tile_map.json".into(),
+            source_path: "tile_map".into(),
+            file_format: utils::FileFormat::Csv,
             load_from_source: true,
             next_tile_dir: vec![
                 (Vec3::X, IVec3::X),
